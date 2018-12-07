@@ -10,3 +10,4 @@ In this project a Neural Network has trained with 7 expressions corresponding a 
 + Keras
 + OpenCV
 
+Video: https://youtu.be/TY6k3vKIsQQ
