@@ -1,3 +1,9 @@
+# Developed by Sandro Silva Moreira - moreira.sandro@gmail.com
+# for demonstrate how apply techniques of Deep Learning 
+
+# In this project a Neural Network has trainned with 7 expressions
+# corresponding a 7 Emojis... to increase the points the user must imitate emoji
+
 import os
 import numpy as np
 import cv2
@@ -16,7 +22,8 @@ cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1000);
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600);
 
 #-----------------------------
-#face expression recognizer initialization
+#Neural Model - face expression
+
 from keras.models import model_from_json
 model = model_from_json(open("facial_expression_model_structure.json", "r").read())
 model.load_weights('facial_expression_model_weights.h5') #load weights
@@ -63,7 +70,7 @@ while(True):
 		
 		predictions = model.predict(img_pixels) #store probabilities of 7 expressions
 		
-		#find max indexed array 0: angry, 1:disgust, 2:fear, 3:happy, 4:sad, 5:surprise, 6:neutral
+		#max indexed array 0: angry, 1:disgust, 2:fear, 3:happy, 4:sad, 5:surprise, 6:neutral
 		max_index = np.argmax(predictions[0])
 		
 		emotion = emotions[max_index]
@@ -71,7 +78,6 @@ while(True):
 		#write emotion text above rectangle
 		cv2.putText(img, emotion, (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
 		
-		#process on detected face end
 		#-------------------------
 
 		if max_index == sequencia[0]:
@@ -79,7 +85,7 @@ while(True):
 			del sequencia[0]
 			pontos = pontos + 1
 
-		#points
+		#points on screen
 		pontuacao = str(pontos) + " pontos"
 		cv2.putText(img, pontuacao, (int(730), int(240)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
 
